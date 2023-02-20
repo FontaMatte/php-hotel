@@ -45,17 +45,6 @@
     // var_dump($hotels);
     // echo '</pre>';
 
-    foreach ($hotels as $hotel) {
-       foreach ($hotel as $hotelInfo ) {
-        echo '<ul>';
-        echo '<li>';
-        echo $hotelInfo;
-        echo '</li>';
-        echo '</ul>';
-       }
-       echo '<hr>';
-    }
-
 ?>
 
 <!DOCTYPE html>
@@ -68,6 +57,37 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     </head>
     <body>
+
+        <h1>PHP Hotel</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Parking</th>
+                    <th scope="col">Vote</th>
+                    <th scope="col">Distance to Center</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+            <?php
+                foreach ($hotels as $hotel) {
+
+                    echo '<tr>';
+                    echo '<td>'.$hotel['name'].'</td>';
+                    echo '<td>'.$hotel['description'].'</td>';
+                    echo '<td>'.($hotel['parking']?'yes' : 'no').'</td>';
+                    echo '<td>'.$hotel['vote'].'</td>';
+                    echo '<td>'.$hotel['distance_to_center'].'</td>';
+                    echo '</tr>';
+                    
+                }
+            ?>
+            </tbody>
+
+        </table>  
         
     </body>
 </html>
