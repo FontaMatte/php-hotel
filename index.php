@@ -47,6 +47,13 @@
         });
     }
 
+    // Filter hotels by rating
+    if(isset($_GET['vote']) && $_GET['vote'] != ''){
+        $hotels = array_filter($hotels, function($hotel){
+            return $hotel['vote'] >= $_GET['vote'];
+        });
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -71,7 +78,7 @@
                 </div>
                 <div class="form-group mb-2">
                     <label for="rating">Rating:</label>
-                    <select name="rating" id="rating" class="form-control">
+                    <select name="vote" id="rating" class="form-control">
                         <option value="">All</option>
                         <option value="3">3 stars or more</option>
                         <option value="4">4 stars or more</option>
