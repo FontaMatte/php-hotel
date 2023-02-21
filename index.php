@@ -40,10 +40,12 @@
 
     ];
 
-    //strpos(stringa, cosaCercare) - cerca all’interno di una stringa un’altra stringa e torna la posizione in cui si trova
-    // echo '<pre>';
-    // var_dump($hotels);
-    // echo '</pre>';
+    // Filter hotels by parking
+    if(isset($_GET['parking']) && $_GET['parking'] == 1){
+        $hotels = array_filter($hotels, function($hotel){
+            return $hotel['parking'] == true;
+        });
+    }
 
 ?>
 
@@ -58,36 +60,58 @@
     </head>
     <body>
 
-        <h1>PHP Hotel</h1>
+        <div class="container">
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Parking</th>
-                    <th scope="col">Vote</th>
-                    <th scope="col">Distance to Center</th>
-                </tr>
-            </thead>
-            
-            <tbody>
-            <?php
-                foreach ($hotels as $hotel) {
+            <h1>PHP Hotel</h1>
+            <!-- Filter form -->
+            <form method="GET" action="">
+                <div class="form-group mb-2">
+                    <label for="parking">Parking:</label>
+                    <input type="checkbox" name="parking" id="parking" value="1">
+                </div>
+                <div class="form-group mb-2">
+                    <label for="rating">Rating:</label>
+                    <select name="rating" id="rating" class="form-control">
+                        <option value="">All</option>
+                        <option value="3">3 stars or more</option>
+                        <option value="4">4 stars or more</option>
+                        <option value="5">5 stars</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </form>
+            <hr>
 
-                    echo '<tr>';
-                    echo '<td>'.$hotel['name'].'</td>';
-                    echo '<td>'.$hotel['description'].'</td>';
-                    echo '<td>'.($hotel['parking']?'yes' : 'no').'</td>';
-                    echo '<td>'.$hotel['vote'].'</td>';
-                    echo '<td>'.$hotel['distance_to_center'].'</td>';
-                    echo '</tr>';
-                    
-                }
-            ?>
-            </tbody>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Parking</th>
+                        <th scope="col">Vote</th>
+                        <th scope="col">Distance to Center</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                <?php
+                    foreach ($hotels as $hotel) {
 
-        </table>  
+                        echo '<tr>';
+                        echo '<td>'.$hotel['name'].'</td>';
+                        echo '<td>'.$hotel['description'].'</td>';
+                        echo '<td>'.($hotel['parking']?'yes' : 'no').'</td>';
+                        echo '<td>'.$hotel['vote'].'</td>';
+                        echo '<td>'.$hotel['distance_to_center'].'</td>';
+                        echo '</tr>';
+                        
+                    }
+                ?>
+                </tbody>
+
+            </table>  
+
+        </div>
         
     </body>
 </html>
